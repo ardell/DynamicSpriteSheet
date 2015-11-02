@@ -1,0 +1,6 @@
+framework module Pods_DynamicSpriteSheet_Tests {
+  umbrella header "Pods-DynamicSpriteSheet_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

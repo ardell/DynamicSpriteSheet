@@ -1,0 +1,14 @@
+PODS:
+  - DynamicSpriteSheet (0.1.0)
+
+DEPENDENCIES:
+  - DynamicSpriteSheet (from `../`)
+
+EXTERNAL SOURCES:
+  DynamicSpriteSheet:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  DynamicSpriteSheet: a719690011dea05e0a92f97ab8fe178ed82f746f
+
+COCOAPODS: 0.39.0

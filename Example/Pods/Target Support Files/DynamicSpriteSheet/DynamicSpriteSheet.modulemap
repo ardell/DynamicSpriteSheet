@@ -1,0 +1,6 @@
+framework module DynamicSpriteSheet {
+  umbrella header "DynamicSpriteSheet-umbrella.h"
+
+  export *
+  module * { export * }
+}
