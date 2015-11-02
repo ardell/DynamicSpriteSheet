@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0CB75372BABA1DCA0ABED17D8E8DB7D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		24218352EBFEA373BF0D251A767DA099 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		731D03B19F2F287F77559C727052CEA8 /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58E41F2995B93B12A58E91F55B8396F /* ReplaceMe.swift */; };
+		731D03B19F2F287F77559C727052CEA8 /* DSSSpriteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58E41F2995B93B12A58E91F55B8396F /* DSSSpriteSheet.swift */; };
 		984ED488239ED83FB60860A7AF499266 /* DynamicSpriteSheet.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E5BB3A52C357EEA5956F7942860A0E14 /* DynamicSpriteSheet.bundle */; };
 		AFB4A741A208D384B46DCB5B22DFE434 /* DynamicSpriteSheet-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DA1479608A4AA14F2EE5AA7819F8BB /* DynamicSpriteSheet-dummy.m */; };
 		B2FDE2AF23A38807A498361DDED3C9E1 /* DynamicSpriteSheet-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CAEAB5F4C3271C01AF95B28C6A3E52E /* DynamicSpriteSheet-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -53,7 +53,7 @@
 		C3DA1479608A4AA14F2EE5AA7819F8BB /* DynamicSpriteSheet-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DynamicSpriteSheet-dummy.m"; sourceTree = "<group>"; };
 		C86A2860ACC5FD32D74BA4BB0F3D803B /* Pods-DynamicSpriteSheet_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DynamicSpriteSheet_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		D4816259A669FBCC15EE4B9A49024A48 /* Pods-DynamicSpriteSheet_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DynamicSpriteSheet_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		D58E41F2995B93B12A58E91F55B8396F /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReplaceMe.swift; sourceTree = "<group>"; };
+		D58E41F2995B93B12A58E91F55B8396F /* DSSSpriteSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DSSSpriteSheet.swift; sourceTree = "<group>"; };
 		E2AEC599F1B09B84C4927E11350BBE81 /* Pods-DynamicSpriteSheet_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-DynamicSpriteSheet_Tests.modulemap"; sourceTree = "<group>"; };
 		E5BB3A52C357EEA5956F7942860A0E14 /* DynamicSpriteSheet.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DynamicSpriteSheet.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19D381A42F1643885FDA9B2BCF207FE /* Pods-DynamicSpriteSheet_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DynamicSpriteSheet_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 		9F5969FEA44B3DAAF3120D24076F60DD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D58E41F2995B93B12A58E91F55B8396F /* ReplaceMe.swift */,
+				D58E41F2995B93B12A58E91F55B8396F /* DSSSpriteSheet.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -325,7 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFB4A741A208D384B46DCB5B22DFE434 /* DynamicSpriteSheet-dummy.m in Sources */,
-				731D03B19F2F287F77559C727052CEA8 /* ReplaceMe.swift in Sources */,
+				731D03B19F2F287F77559C727052CEA8 /* DSSSpriteSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
