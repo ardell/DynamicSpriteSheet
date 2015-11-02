@@ -1,6 +1,6 @@
 # DynamicSpriteSheet
 
-[![CI Status](http://img.shields.io/travis/Jason Ardell/DynamicSpriteSheet.svg?style=flat)](https://travis-ci.org/Jason Ardell/DynamicSpriteSheet)
+[![CI Status](http://img.shields.io/travis/ardell/DynamicSpriteSheet.svg?style=flat)](https://travis-ci.org/ardell/DynamicSpriteSheet)
 [![Version](https://img.shields.io/cocoapods/v/DynamicSpriteSheet.svg?style=flat)](http://cocoapods.org/pods/DynamicSpriteSheet)
 [![License](https://img.shields.io/cocoapods/l/DynamicSpriteSheet.svg?style=flat)](http://cocoapods.org/pods/DynamicSpriteSheet)
 [![Platform](https://img.shields.io/cocoapods/p/DynamicSpriteSheet.svg?style=flat)](http://cocoapods.org/pods/DynamicSpriteSheet)
