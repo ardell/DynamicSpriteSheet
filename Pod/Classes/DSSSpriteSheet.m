@@ -77,7 +77,7 @@
 
 - (int)_yPositionForIndex:(int)index
 {
-  int indexOfRow = floor(index / _itemsPerRow);
+  int indexOfRow = (int)(double)floor((double)index / (double)_itemsPerRow);
   int yPosition = indexOfRow * _itemHeight;
   return yPosition;
 }
@@ -94,7 +94,7 @@
 
 - (int)_rows
 {
-  return ceil([_images count] / _itemsPerRow);
+  return (int)(double)ceil((double)[_images count] / (double)_itemsPerRow);
 }
 
 - (int)_columns
