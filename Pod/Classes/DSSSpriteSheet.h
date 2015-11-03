@@ -13,7 +13,8 @@
 
 - (instancetype)initWithItemWidth:(int)width
                            height:(int)height
-                      itemsPerRow:(int)itemsPerRow;
+                      itemsPerRow:(int)itemsPerRow
+                      borderWidth:(int)borderWidth;
 
 - (void)add:(UIImage *)image;
 

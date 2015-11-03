@@ -9,19 +9,21 @@
 #import "DSSSpriteSheet.h"
 
 @implementation DSSSpriteSheet {
-  int _itemWidth, _itemHeight, _itemsPerRow;
+  int _itemWidth, _itemHeight, _itemsPerRow, _borderWidth;
   NSMutableArray *_images;
 }
 
 - (instancetype)initWithItemWidth:(int)width
                            height:(int)height
                       itemsPerRow:(int)itemsPerRow
+                      borderWidth:(int)borderWidth
 {
   if (self = [super init]) {
     _images = [[NSMutableArray alloc] init];
     _itemWidth = width;
     _itemHeight = height;
     _itemsPerRow = itemsPerRow;
+    _borderWidth = borderWidth;
   }
   return self;
 }
@@ -42,7 +44,7 @@
 
   // Set a background fill
   UIColor *backgroundColor = [UIColor whiteColor];
-  CGRect cgRect = CGRectMake(0, 0, (CGFloat)[self _rightX], (CGFloat)[self _bottomY]);
+  CGRect cgRect = CGRectMake(0, 0, (CGFloat)[self _canvasWidth], (CGFloat)[self _canvasHeight]);
   [backgroundColor set];
   UIRectFill(cgRect);
 
@@ -71,25 +73,27 @@
 - (int)_xPositionForIndex:(int)index
 {
   int indexWithinRow = index % _itemsPerRow;
-  int xPosition = indexWithinRow * _itemWidth;
+  int xPosition = _borderWidth + indexWithinRow * (_itemWidth + _borderWidth);
   return xPosition;
 }
 
 - (int)_yPositionForIndex:(int)index
 {
   int indexOfRow = (int)(double)floor((double)index / (double)_itemsPerRow);
-  int yPosition = indexOfRow * _itemHeight;
+  int yPosition = _borderWidth + indexOfRow * (_itemHeight + _borderWidth);
   return yPosition;
 }
 
 - (int)_canvasWidth
 {
-  return [self _columns] * _itemWidth;
+  // border  img  border  img  border
+  return _borderWidth + [self _columns] * (_itemWidth + _borderWidth);
 }
 
 - (int)_canvasHeight
 {
-  return [self _rows] * _itemHeight;
+  // border  img  border  img  border
+  return _borderWidth + [self _rows] * (_itemHeight + _borderWidth);
 }
 
 - (int)_rows
@@ -100,16 +104,6 @@
 - (int)_columns
 {
   return (int)MIN(_images.count, _itemsPerRow);
-}
-
-- (int)_rightX
-{
-  return [self _columns] * _itemWidth;
-}
-
-- (int)_bottomY
-{
-  return [self _rows] * _itemHeight;
 }
 
 @end
