@@ -7,6 +7,7 @@
 //
 
 #import "DSSSpriteSheet.h"
+#import "UIImage+Crop.h"
 
 @implementation DSSSpriteSheet {
   int _itemWidth, _itemHeight, _itemsPerRow, _borderWidth;
@@ -26,6 +27,44 @@
     _borderWidth = borderWidth;
   }
   return self;
+}
+
+- (instancetype)loadFromSheet:(UIImage *)image
+                        width:(int)width
+                       height:(int)height
+                  itemsPerRow:(int)itemsPerRow
+                  borderWidth:(int)borderWidth
+{
+    DSSSpriteSheet *sheet = [self initWithItemWidth:width
+                                             height:height
+                                        itemsPerRow:itemsPerRow
+                                        borderWidth:borderWidth];
+
+    // Pull out as many patches of (width x height) as we can and
+    // add them to _images
+    CGSize sheetSize = [image size];
+    int rows = (int)(double)floor(
+        (double)(sheetSize.height - borderWidth) / (double)(height + borderWidth)
+    );
+    int columns = (int)(double)floor(
+        (double)(sheetSize.width - borderWidth) / (double)(width + borderWidth)
+    );
+    for (int r=0; r<rows; r++) {
+        for (int c=0; c<columns; c++) {
+            // Calculate x and y start positions
+            int xPosition = [self _xPositionForColumn:c];
+            int yPosition = [self _yPositionForRow:r];
+
+            // Crop out the image starting at (x, y)
+            CGRect rect = CGRectMake(xPosition, yPosition, width, height);
+            UIImage *cropped = [image crop:rect];
+
+            // Add image to _images
+            [sheet add:cropped];
+        }
+    }
+
+    return sheet;
 }
 
 - (void)add:(UIImage *)image
@@ -89,6 +128,16 @@
   int indexOfRow = (int)(double)floor((double)index / (double)_itemsPerRow);
   int yPosition = _borderWidth + indexOfRow * (_itemHeight + _borderWidth);
   return yPosition;
+}
+
+- (int)_xPositionForColumn:(int)column
+{
+  return _borderWidth + (column * _itemWidth);
+}
+
+- (int)_yPositionForRow:(int)row
+{
+  return _borderWidth + (row * _itemHeight);
 }
 
 - (int)_canvasWidth

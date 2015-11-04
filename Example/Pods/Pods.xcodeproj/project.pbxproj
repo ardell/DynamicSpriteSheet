@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0CB75372BABA1DCA0ABED17D8E8DB7D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		24218352EBFEA373BF0D251A767DA099 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		8A4E2B041BE9C19500F34274 /* UIImage+Crop.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A4E2B021BE9C19500F34274 /* UIImage+Crop.h */; };
+		8A4E2B051BE9C19500F34274 /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E2B031BE9C19500F34274 /* UIImage+Crop.m */; };
 		8ABF8FEB1BE8725D00ECE877 /* DSSSpriteSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ABF8FEA1BE8725D00ECE877 /* DSSSpriteSheet.h */; };
 		8ABF8FED1BE8726400ECE877 /* DSSSpriteSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF8FEC1BE8726400ECE877 /* DSSSpriteSheet.m */; };
 		984ED488239ED83FB60860A7AF499266 /* DynamicSpriteSheet.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E5BB3A52C357EEA5956F7942860A0E14 /* DynamicSpriteSheet.bundle */; };
@@ -48,6 +50,8 @@
 		72FDBB843C8F84E6E61D2DB2C47ABC0A /* Pods-DynamicSpriteSheet_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-DynamicSpriteSheet_Tests-umbrella.h"; sourceTree = "<group>"; };
 		78EBDFA10F69ADE264EC71BD6833B908 /* Pods_DynamicSpriteSheet_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DynamicSpriteSheet_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86DFC4146232AF0055C63A0DEA0910E5 /* Pods-DynamicSpriteSheet_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DynamicSpriteSheet_Tests-resources.sh"; sourceTree = "<group>"; };
+		8A4E2B021BE9C19500F34274 /* UIImage+Crop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Crop.h"; sourceTree = "<group>"; };
+		8A4E2B031BE9C19500F34274 /* UIImage+Crop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Crop.m"; sourceTree = "<group>"; };
 		8ABF8FEA1BE8725D00ECE877 /* DSSSpriteSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSSpriteSheet.h; sourceTree = "<group>"; };
 		8ABF8FEC1BE8726400ECE877 /* DSSSpriteSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSSpriteSheet.m; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -154,6 +158,8 @@
 			children = (
 				8ABF8FEA1BE8725D00ECE877 /* DSSSpriteSheet.h */,
 				8ABF8FEC1BE8726400ECE877 /* DSSSpriteSheet.m */,
+				8A4E2B021BE9C19500F34274 /* UIImage+Crop.h */,
+				8A4E2B031BE9C19500F34274 /* UIImage+Crop.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -217,6 +223,7 @@
 			files = (
 				8ABF8FEB1BE8725D00ECE877 /* DSSSpriteSheet.h in Headers */,
 				B2FDE2AF23A38807A498361DDED3C9E1 /* DynamicSpriteSheet-umbrella.h in Headers */,
+				8A4E2B041BE9C19500F34274 /* UIImage+Crop.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +335,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A4E2B051BE9C19500F34274 /* UIImage+Crop.m in Sources */,
 				8ABF8FED1BE8726400ECE877 /* DSSSpriteSheet.m in Sources */,
 				AFB4A741A208D384B46DCB5B22DFE434 /* DynamicSpriteSheet-dummy.m in Sources */,
 			);
