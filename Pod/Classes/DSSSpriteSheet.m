@@ -60,23 +60,32 @@
             UIImage *cropped = [image crop:rect];
 
             // Add image to _images
-            [sheet add:cropped];
+            [sheet addImage:cropped];
         }
     }
 
     return sheet;
 }
 
-- (void)add:(UIImage *)image
+- (void)addImage:(UIImage *)image withBorderColor:(UIColor *)borderColor
 {
-  NSData *data = UIImageJPEGRepresentation(image, 1.0);
+  NSDictionary *dict = @{
+    @"imageData":   UIImageJPEGRepresentation(image, 1.0),
+    @"borderColor": borderColor,
+  };
+  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dict];
   [_images addObject:data];
+}
+
+- (void)addImage:(UIImage *)image
+{
+  [self addImage:image withBorderColor:[UIColor whiteColor]];
 }
 
 - (UIImage *)imageAtIndex:(int)index
 {
-  NSData *data = [_images objectAtIndex:index];
-  return [UIImage imageWithData:data];
+  NSDictionary *dict = [self _dictionaryAtIndex:index];
+  return [UIImage imageWithData:[dict objectForKey:@"imageData"]];
 }
 
 - (UIImage *)toSpriteSheet
@@ -94,10 +103,22 @@
   [backgroundColor set];
   UIRectFill(cgRect);
 
-  // Add each image to the canvas
+  // Add each border and image to the canvas
   for (int i=0; i<_images.count; i++) {
     int xPosition = [self _xPositionForIndex:i];
     int yPosition = [self _yPositionForIndex:i];
+
+    // Border
+    CGRect borderRect = CGRectMake(
+      (CGFloat)(xPosition - _borderWidth),
+      (CGFloat)(yPosition - _borderWidth),
+      (CGFloat)(_itemWidth + 2*_borderWidth),
+      (CGFloat)(_itemHeight + 2*_borderWidth)
+    );
+    [[self _borderColorAtIndex:i] set];
+    UIRectFill(borderRect);
+
+    // Image
     UIImage *image = [self imageAtIndex:i];
     CGRect cgRect = CGRectMake(
       (CGFloat)xPosition,
@@ -116,40 +137,51 @@
 
 /*** "private" methods ***/
 
+- (NSDictionary *)_dictionaryAtIndex:(int)index
+{
+  NSData *data = [_images objectAtIndex:index];
+  return (NSDictionary*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+}
+
+- (UIColor *)_borderColorAtIndex:(int)index
+{
+  NSDictionary *dict = [self _dictionaryAtIndex:index];
+  return [dict objectForKey:@"borderColor"];
+}
+
 - (int)_xPositionForIndex:(int)index
 {
+  // border  image  border  border  image  border  border  image  border
   int indexWithinRow = index % _itemsPerRow;
-  int xPosition = _borderWidth + indexWithinRow * (_itemWidth + _borderWidth);
+  int xPosition = _borderWidth + indexWithinRow * (_itemWidth + 2*_borderWidth);
   return xPosition;
 }
 
 - (int)_yPositionForIndex:(int)index
 {
   int indexOfRow = (int)(double)floor((double)index / (double)_itemsPerRow);
-  int yPosition = _borderWidth + indexOfRow * (_itemHeight + _borderWidth);
+  int yPosition = _borderWidth + indexOfRow * (_itemHeight + 2*_borderWidth);
   return yPosition;
 }
 
 - (int)_xPositionForColumn:(int)column
 {
-  return _borderWidth + column * (_itemWidth + _borderWidth);
+  return _borderWidth + column * (_itemWidth + 2*_borderWidth);
 }
 
 - (int)_yPositionForRow:(int)row
 {
-  return _borderWidth + row * (_itemHeight + _borderWidth);
+  return _borderWidth + row * (_itemHeight + 2*_borderWidth);
 }
 
 - (int)_canvasWidth
 {
-  // border  img  border  img  border
-  return _borderWidth + [self _columns] * (_itemWidth + _borderWidth);
+  return [self _columns] * (_itemWidth + 2*_borderWidth);
 }
 
 - (int)_canvasHeight
 {
-  // border  img  border  img  border
-  return _borderWidth + [self _rows] * (_itemHeight + _borderWidth);
+  return [self _rows] * (_itemHeight + 2*_borderWidth);
 }
 
 - (int)_rows

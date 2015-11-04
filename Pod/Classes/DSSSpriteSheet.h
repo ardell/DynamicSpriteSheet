@@ -22,7 +22,8 @@
                   itemsPerRow:(int)itemsPerRow
                   borderWidth:(int)borderWidth;
 
-- (void)add:(UIImage *)image;
+- (void)addImage:(UIImage *)image withBorderColor:(UIColor *)borderColor;
+- (void)addImage:(UIImage *)image;
 
 - (UIImage *)imageAtIndex:(int)index;
 
