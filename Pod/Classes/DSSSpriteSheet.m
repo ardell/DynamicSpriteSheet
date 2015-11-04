@@ -132,12 +132,12 @@
 
 - (int)_xPositionForColumn:(int)column
 {
-  return _borderWidth + (column * _itemWidth);
+  return _borderWidth + column * (_itemWidth + _borderWidth);
 }
 
 - (int)_yPositionForRow:(int)row
 {
-  return _borderWidth + (row * _itemHeight);
+  return _borderWidth + row * (_itemHeight + _borderWidth);
 }
 
 - (int)_canvasWidth
