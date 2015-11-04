@@ -24,6 +24,8 @@
 
 - (void)add:(UIImage *)image;
 
+- (UIImage *)imageAtIndex:(int)index;
+
 - (UIImage *)toSpriteSheet;
 
 @end

@@ -73,6 +73,12 @@
   [_images addObject:data];
 }
 
+- (UIImage *)imageAtIndex:(int)index
+{
+  NSData *data = [_images objectAtIndex:index];
+  return [UIImage imageWithData:data];
+}
+
 - (UIImage *)toSpriteSheet
 {
   // Create a new UIImage (to use as our canvas)
@@ -92,7 +98,7 @@
   for (int i=0; i<_images.count; i++) {
     int xPosition = [self _xPositionForIndex:i];
     int yPosition = [self _yPositionForIndex:i];
-    UIImage *image = [self _imageAtIndex:i];
+    UIImage *image = [self imageAtIndex:i];
     CGRect cgRect = CGRectMake(
       (CGFloat)xPosition,
       (CGFloat)yPosition,
@@ -109,12 +115,6 @@
 }
 
 /*** "private" methods ***/
-
-- (UIImage *)_imageAtIndex:(int)index
-{
-    NSData *data = [_images objectAtIndex:index];
-    return [UIImage imageWithData:data];
-}
 
 - (int)_xPositionForIndex:(int)index
 {
