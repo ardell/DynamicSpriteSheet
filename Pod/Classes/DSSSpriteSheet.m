@@ -30,7 +30,8 @@
 
 - (void)add:(UIImage *)image
 {
-  [_images addObject:image];
+  NSData *data = UIImageJPEGRepresentation(image, 1.0);
+  [_images addObject:data];
 }
 
 - (UIImage *)toSpriteSheet
@@ -52,7 +53,7 @@
   for (int i=0; i<_images.count; i++) {
     int xPosition = [self _xPositionForIndex:i];
     int yPosition = [self _yPositionForIndex:i];
-    UIImage *image = [_images objectAtIndex:i];
+    UIImage *image = [self _imageAtIndex:i];
     CGRect cgRect = CGRectMake(
       (CGFloat)xPosition,
       (CGFloat)yPosition,
@@ -69,6 +70,12 @@
 }
 
 /*** "private" methods ***/
+
+- (UIImage *)_imageAtIndex:(int)index
+{
+    NSData *data = [_images objectAtIndex:index];
+    return [UIImage imageWithData:data];
+}
 
 - (int)_xPositionForIndex:(int)index
 {
