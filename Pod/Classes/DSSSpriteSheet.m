@@ -70,7 +70,7 @@
 - (void)addImage:(UIImage *)image withBorderColor:(UIColor *)borderColor
 {
   NSDictionary *dict = @{
-    @"imageData":   UIImageJPEGRepresentation(image, 1.0),
+    @"imageData":   UIImagePNGRepresentation(image),
     @"borderColor": borderColor,
   };
   NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dict];
