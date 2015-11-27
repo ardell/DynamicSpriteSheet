@@ -44,10 +44,10 @@
     // add them to _images
     CGSize sheetSize = [image size];
     int rows = (int)(double)floor(
-        (double)(sheetSize.height - borderWidth) / (double)(height + borderWidth)
+        (double)sheetSize.height / (double)(height + 2*borderWidth)
     );
     int columns = (int)(double)floor(
-        (double)(sheetSize.width - borderWidth) / (double)(width + borderWidth)
+        (double)sheetSize.width / (double)(width + 2*borderWidth)
     );
     for (int r=0; r<rows; r++) {
         for (int c=0; c<columns; c++) {
