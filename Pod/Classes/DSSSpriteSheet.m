@@ -12,6 +12,7 @@
 @implementation DSSSpriteSheet {
   int _itemWidth, _itemHeight, _itemsPerRow, _borderWidth;
   NSMutableArray *_images;
+  UIImage *_image;
 }
 
 - (instancetype)initWithItemWidth:(int)width
@@ -19,52 +20,32 @@
                       itemsPerRow:(int)itemsPerRow
                       borderWidth:(int)borderWidth
 {
+  return [self initWithItemWidth:width
+                          height:height
+                     itemsPerRow:itemsPerRow
+                     borderWidth:borderWidth
+                           image:nil];
+}
+
+- (instancetype)initWithItemWidth:(int)width
+                           height:(int)height
+                      itemsPerRow:(int)itemsPerRow
+                      borderWidth:(int)borderWidth
+                            image:(UIImage *)image
+{
   if (self = [super init]) {
-    _images = [[NSMutableArray alloc] init];
     _itemWidth = width;
     _itemHeight = height;
     _itemsPerRow = itemsPerRow;
     _borderWidth = borderWidth;
-  }
-  return self;
-}
 
-- (instancetype)loadFromSheet:(UIImage *)image
-                        width:(int)width
-                       height:(int)height
-                  itemsPerRow:(int)itemsPerRow
-                  borderWidth:(int)borderWidth
-{
-  DSSSpriteSheet *sheet = [self initWithItemWidth:width
-                                           height:height
-                                      itemsPerRow:itemsPerRow
-                                      borderWidth:borderWidth];
-
-  // Pull out as many patches of (width x height) as we can and
-  // add them to _images
-  CGSize sheetSize = [image size];
-  int rows = (int)(double)floor(
-    (double)sheetSize.height / (double)(height + 2*borderWidth)
-  );
-  int columns = (int)(double)floor(
-    (double)sheetSize.width / (double)(width + 2*borderWidth)
-  );
-  for (int r=0; r<rows; r++) {
-    for (int c=0; c<columns; c++) {
-      // Calculate x and y start positions
-      int xPosition = [self _xPositionForColumn:c];
-      int yPosition = [self _yPositionForRow:r];
-
-      // Crop out the image starting at (x, y)
-      CGRect rect = CGRectMake(xPosition, yPosition, width, height);
-      UIImage *cropped = [image crop:rect];
-
-      // Add image to _images
-      [sheet addImage:cropped];
+    if (image) {
+      _image = image;
+    } else {
+      _images = [[NSMutableArray alloc] init];
     }
   }
-
-  return sheet;
+  return self;
 }
 
 - (void)addImage:(UIImage *)image withBorderColor:(UIColor *)borderColor
@@ -82,10 +63,51 @@
   [self addImage:image withBorderColor:[UIColor whiteColor]];
 }
 
+- (int)itemWidth
+{
+  return _itemWidth;
+}
+
+- (int)itemHeight
+{
+  return _itemHeight;
+}
+
+- (int)xPositionForIndex:(int)index
+{
+  // border  image  border  border  image  border  border  image  border
+  int indexWithinRow = index % _itemsPerRow;
+  int xPosition = _borderWidth + indexWithinRow * (_itemWidth + 2*_borderWidth);
+  return xPosition;
+}
+
+- (int)yPositionForIndex:(int)index
+{
+  // border  image  border  border  image  border  border  image  border
+  int indexOfRow = (int)(double)floor((double)index / (double)_itemsPerRow);
+  int yPosition = _borderWidth + indexOfRow * (_itemHeight + 2*_borderWidth);
+  return yPosition;
+}
+
 - (UIImage *)imageAtIndex:(int)index
 {
-  NSDictionary *dict = [self _dictionaryAtIndex:index];
-  return [UIImage imageWithData:[dict objectForKey:@"imageData"]];
+  // Calculate x/y coords
+  int x = [self xPositionForIndex:index];
+  int y = [self yPositionForIndex:index];
+
+  // Prepare sprite sheet if it doesn't already exist
+  if (!_image) [self toSpriteSheet];
+
+  // Make sure we're not requesting an image that's outside the bounds
+  // of the sprite
+  CGSize sheetSize = [_image size];
+  if (x+_itemWidth > sheetSize.width || y+_itemHeight > sheetSize.height) {
+    return nil;
+  }
+
+  // Crop out the image starting at (x, y)
+  CGRect rect = CGRectMake(x, y, _itemWidth, _itemHeight);
+  return [_image crop:rect];
 }
 
 - (UIImage *)toSpriteSheet
@@ -105,8 +127,8 @@
 
   // Add each border and image to the canvas
   for (int i=0; i<_images.count; i++) {
-    int xPosition = [self _xPositionForIndex:i];
-    int yPosition = [self _yPositionForIndex:i];
+    int xPosition = [self xPositionForIndex:i];
+    int yPosition = [self yPositionForIndex:i];
 
     // Border
     CGRect borderRect = CGRectMake(
@@ -119,7 +141,8 @@
     UIRectFill(borderRect);
 
     // Image
-    UIImage *image = [self imageAtIndex:i];
+    NSDictionary *dict = [self _dictionaryAtIndex:i];
+    UIImage *image = [UIImage imageWithData:[dict objectForKey:@"imageData"]];
     CGRect cgRect = CGRectMake(
       (CGFloat)xPosition,
       (CGFloat)yPosition,
@@ -129,9 +152,12 @@
     [image drawInRect:cgRect];
   }
 
-  // Return the new UIImage
+  // Build the sprite sheet
   UIImage *spriteSheet = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
+  _image = spriteSheet;
+
+  // Return the new UIImage
   return spriteSheet;
 }
 
@@ -147,21 +173,6 @@
 {
   NSDictionary *dict = [self _dictionaryAtIndex:index];
   return [dict objectForKey:@"borderColor"];
-}
-
-- (int)_xPositionForIndex:(int)index
-{
-  // border  image  border  border  image  border  border  image  border
-  int indexWithinRow = index % _itemsPerRow;
-  int xPosition = _borderWidth + indexWithinRow * (_itemWidth + 2*_borderWidth);
-  return xPosition;
-}
-
-- (int)_yPositionForIndex:(int)index
-{
-  int indexOfRow = (int)(double)floor((double)index / (double)_itemsPerRow);
-  int yPosition = _borderWidth + indexOfRow * (_itemHeight + 2*_borderWidth);
-  return yPosition;
 }
 
 - (int)_xPositionForColumn:(int)column

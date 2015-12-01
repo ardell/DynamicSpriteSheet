@@ -16,16 +16,20 @@
                       itemsPerRow:(int)itemsPerRow
                       borderWidth:(int)borderWidth;
 
-- (instancetype)loadFromSheet:(UIImage *)sheet
-                        width:(int)width
-                       height:(int)height
-                  itemsPerRow:(int)itemsPerRow
-                  borderWidth:(int)borderWidth;
+- (instancetype)initWithItemWidth:(int)width
+                           height:(int)height
+                      itemsPerRow:(int)itemsPerRow
+                      borderWidth:(int)borderWidth
+                            image:(UIImage *)image;
 
 - (void)addImage:(UIImage *)image withBorderColor:(UIColor *)borderColor;
 - (void)addImage:(UIImage *)image;
 
 - (UIImage *)imageAtIndex:(int)index;
+- (int)itemWidth;
+- (int)itemHeight;
+- (int)xPositionForIndex:(int)index;
+- (int)yPositionForIndex:(int)index;
 
 - (UIImage *)toSpriteSheet;
 
